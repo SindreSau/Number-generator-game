@@ -1,1 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Number guessing game</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
 
+      <style>
+      body {
+        align-items: center;
+        position: relative;
+      }
+      body, h1,h2,h3,h4,h5,h6 {
+        font-family: "Montserrat", sans-serif
+      }
+      header {
+        text-align: center;
+      }
+      h2 {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+      p {
+        font-size: 1.2rem;
+        text-align: center;
+      }
+      div {
+        text-align: center;
+      }
+
+      </style>
+
+  <!-- <script src="Index.js"></script> -->
+</head>
+  <body class="">
+
+  <div>
+    <input type="button" id="fullscreen" flag="fullscreen" value="click to toggle fullscreen" onclick="toggleFullScreen()">
+
+    <!-- Page Content -->
+    <div id="content" class="content">
+      <!-- Header/Home -->
+      <header id="header">
+        <h1>Number game</h1>
+        <h2>Guess the number between 1 - 100</h2>
+      </header> <br>
+
+        <!-- Game -->
+      <div id="gameField">
+        <p id="outputText" class="outputText">(Jarvis will answer you here)</p>
+        <input type="number" id="userInput" placeholder="enter your guess" style="text-align: center;">
+        <button id="btn">submit</button>
+      </div>
+
+        <!-- try again button -->
+          <div id="tryAgain" class="tryAgain">
+            
+          </div>
+
+      <!-- Answer for testing -->
+      <!-- <div> <br><br>
+        <p1 id="testAnswer" style="color: rgb(255, 0, 0);"></p1>
+      </div> -->
+
+
+    </div>
+  </div>
+
+      <script type = "text/javascript">
+        
+        let y = Math.floor(Math.random() * 100 + 1)
+        let btn = document.getElementById('btn');
+        let output = document.getElementById('outputText')
+        
+      //function for enter-click to submit
+      document.getElementById("userInput")
+          .addEventListener("keyup", function(e) {
+              if (e.keyCode === 13) {
+                  document.getElementById("btn").click();
+              }
+          });
+
+            //Game function
+        btn.addEventListener('click', function checkGuess() {
+          let x = document.getElementById('userInput').value;
+            if (x == y) {
+              win()
+              output.innerHTML = `Jarvis says: You did it you fat fuck. Your number was ${y}!` //`literal`er literal. kan kombinere strings og andre datatyper
+            }
+            else if (x > 100) {
+              output.innerHTML = "Jarvis says: You stupid fuck. Your number must be less than 101"
+            }
+            else if (x < 0) {
+              output.innerHTML = "Jarvis says: You stupid cunt. Your number must be more than zero"
+            }
+            else if (x > y) {
+              output.innerHTML = `Jarvis says: ${x} was to high`
+            }
+            else {
+              output.innerHTML = `Jarvis says: ${x} was to low`
+            }
+        });
+
+        //Win function
+          const win = () => {
+        //Remove elements
+            document.getElementById("userInput").remove()  
+            document.getElementById("outputText").remove()
+            btn.remove()
+            document.getElementById("header").remove()
+        //New text
+            const newTxt = document.createElement("h3");
+            const winTxt = document.createTextNode("You did it you fat fuck! Wanna try again??");
+            newTxt.appendChild(winTxt);
+
+            const gameFld = document.getElementById("gameField");
+            gameFld.appendChild(newTxt);
+        //img
+            const img = document.createElement("img");
+            img.src = "/assets/Bulldog_N_Trophy-removebackground.png";
+            document.body.appendChild(img);
+        //New button
+            var myDiv = document.getElementById("tryAgain");
+        
+            var button = document.createElement("BUTTON");
+            button.innerHTML = "Try Again";
+            button.onclick = refreshPage
+        
+            myDiv.appendChild(button);
+
+        }
+
+        //Refresh page BUTTON
+            function refreshPage(){
+            window.location.reload();
+            } 
+
+        function toggleFullScreen() {
+  if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
+   (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+    if (document.documentElement.requestFullScreen) {  
+      document.documentElement.requestFullScreen();  
+    } else if (document.documentElement.mozRequestFullScreen) {  
+      document.documentElement.mozRequestFullScreen();  
+    } else if (document.documentElement.webkitRequestFullScreen) {  
+      document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
+    }  
+  } else {  
+    if (document.cancelFullScreen) {  
+      document.cancelFullScreen();  
+    } else if (document.mozCancelFullScreen) {  
+      document.mozCancelFullScreen();  
+    } else if (document.webkitCancelFullScreen) {  
+      document.webkitCancelFullScreen();  
+    }  
+  }  
+}
+
+
+      // Answer for testing purposes
+      // let answer = document.getElementById('testAnswer')
+      //       testAnswer.innerHTML = "Answer: " + y
+      
+      </script>
+
+  </body>
+</html>
